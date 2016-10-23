@@ -1,7 +1,7 @@
 function [minVal, alert] = Minimize(fHandle, t0, tf)
 % Use matlab's built in minimization function fmindbnd  to mimimize fHandle
 % on the interval [t0,tf] where fHandle is a function handle.
-% Allow the user to run the algorithm for longer if it fails to converge
+% Allow the user to run the algorithm for longer if it fails to converge.
 % Return the minimum value found and an alert for error cases.
 
 % WARNING: taken from the mathworks documentation page for fminbnd
@@ -11,14 +11,12 @@ function [minVal, alert] = Minimize(fHandle, t0, tf)
 %    -fminbnd might only give local solutions.
 %    -fminbnd can exhibit slow convergence when the solution is on a 
 %     boundary of the interval.
-
-
+    
     alert = '';
-    flag = 0;
-    mOptions.MaxFunEvals = 5;
-    while (flag ~= 1)
+    mOptions.MaxFunEvals = 500; % <-Inc/dec for more/less minimization time 
+    while (true)
         
-        [a,minVal,flag] = fminbnd(fHandle,t0,tf, mOptions);
+        [a,minVal,flag] = fminbnd(fHandle,t0,tf,mOptions);
         minVal = double(minVal);
         
         switch flag
@@ -27,7 +25,7 @@ function [minVal, alert] = Minimize(fHandle, t0, tf)
             case 1
                 return;
 
-            % Number of allowed iterations exceeded. Query user for more
+            % Number of allowed iterations exceeded. Query user for more.
             case 0 
                 qString = 'Minimization algorithm for driving function did not converge. Try with more iterations? Click "No" to return to the main menu.';
                 choice = questdlg(qString,'Convergence Warning','Yes','No','No');
