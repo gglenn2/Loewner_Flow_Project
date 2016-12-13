@@ -1,1 +1,0 @@
-This code was designed to implement a far more primitive version of LFS. Indeed, this version came first, and it uses a different simulation algorithm altogether. While the old algorithm seemed promising, LFS proved better at producing tangible results. As of now ALL OF THE CODE IN LFS2/ IS BROKEN. It is left here for academic purposes only, as the algorithm may be of interest.
